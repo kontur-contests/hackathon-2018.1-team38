@@ -4,6 +4,12 @@ var game = new Game();
 var city = new City();
 
 onload = function() {
+	
+
+	var logicScript = window.localStorage["logic"] || '';
+	var editor = ace.edit(document.getElementById('code-editor'));
+	editor.setValue(logicScript);
+
 	game.setTextareaElement(document.getElementById('code-editor'));
 	game.setRunButton(document.getElementById('console-button'));
 
@@ -33,5 +39,13 @@ onload = function() {
 		window.localStorage.removeItem('levelName');
 
 		game.init('invalid');
+	});
+
+
+	$(window).on("beforeunload", function() { 
+
+		var editor = ace.edit(document.getElementById('code-editor'));
+
+		window.localStorage.setItem("logic", editor.getValue());
 	});
 }
