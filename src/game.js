@@ -126,8 +126,8 @@ var previousTimestamp = null;
   }
 
 
-	function setCanvas(wrapper, canvasDom, canvas, timer, goal, status) {
-		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, status, 700, 500);
+	function setCanvas(wrapper, canvasDom, canvas, timer, goal, status, info) {
+		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, status, info, 700, 500);
 
 		if(self.currentLevel != null) {
 			self.canvasManager.loadLevel(self.currentLevel);

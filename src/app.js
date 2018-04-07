@@ -11,7 +11,8 @@ onload = function() {
 		document.getElementById('canvas'),
 		document.getElementById('timer'),
 		document.getElementById('goal'),
-		document.getElementById('status')
+		document.getElementById('status'),
+		document.getElementById('canvas-info')
 		);
 	
 

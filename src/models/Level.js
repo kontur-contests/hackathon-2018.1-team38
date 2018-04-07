@@ -77,8 +77,13 @@ class Level {
     if(car.currentCity == null){
       //car.position += car.velocity*delta;
       
-      let fullDistance = car.route.reduce((sum, x) => sum + x.distance);
-      if(car.position >= fullDistance.distance){
+
+      let sum = 0;
+      for(let i=0; i<car.route.length; i++) {
+        sum += car.route[i].distance;
+      }
+
+      if(car.position >= sum){
         car.finishDelivery();
       }
     }

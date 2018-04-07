@@ -80,9 +80,11 @@ class Transport {
   }
 
   goTo(city) {
-  		if(this.currentCity == city) {
+  		if(this.currentCity == city || this.currentCity == null) {
   			return;
   		}
+
+
 
 		this.route = this.getRouteToCity(city);
 		this.currentCity = null;
