@@ -2,7 +2,7 @@
 
 class Transport {
 
-  constructor(type, capacity, velocity){
+  constructor(type, capacity, velocity, graph){
   	this.id = 1;
     this.type = type;
     this.capacity = capacity;
@@ -12,6 +12,8 @@ class Transport {
     this.direction = false;
     this.position = 0;
     this.currentCity = null;
+
+    this.graph = graph;
   }
 
   load(packCity){
@@ -68,12 +70,15 @@ class Transport {
   }
 
   goTo(city) {
-		this.route = getRouteToCity(city);
+
+		this.route = this.getRouteToCity(city);
 		this.currentCity = null;
   }
 
   getRouteToCity(city) {
-		//TODO: тут будет поиcк по графу пока просто заглушка
-		return [self.currentLevel.roads[0], self.currentLevel.roads[1]];
+  	var roads =  this.graph.findShortestPath(this.currentCity.name, city.name);
+
+
+  	return roads;
   }
 }

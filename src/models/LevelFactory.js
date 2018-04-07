@@ -24,16 +24,7 @@ function LevelFactory(levelName) {
 
 		var transports = [];
 
-		var transport = new Transport("Car", 10, truckVelocity);
-		//transport.currentCity = moscow;
-		transport.route = [
-			new Road(spb, moscow),
-			new Road(moscow, kazan)
-		];
-
-		transport.position = 0;
-
-		transports.push(transport);
+	
 
 
 		var roads = [];
@@ -41,10 +32,20 @@ function LevelFactory(levelName) {
 		roads.push(new Road(moscow, kazan));
 
 		var map = {};
-		map[moscow.name] = addEdge(moscow, [spb]);
+		map[moscow.name] = addEdge(moscow, [spb, kazan]);
 		map[spb.name] = addEdge(spb, [moscow]);
+		map[kazan.name] = addEdge(kazan, [moscow]);
 
-		var graph = new Graph(map);
+
+		var graph = new Graph(map, cities);
+
+
+		var transport = new Transport("Car", 10, truckVelocity, graph);
+		transport.currentCity = spb;
+	
+		transport.position = 0;
+
+		transports.push(transport);
 
 		return new Level(cities, roads, transports, 12, 10, graph);
 	}
