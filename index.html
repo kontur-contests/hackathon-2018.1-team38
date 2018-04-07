@@ -18,32 +18,50 @@
 <link rel="stylesheet" type="text/css" href="src/css/entities.css">
 <link rel="stylesheet" type="text/css" href="src/css/city.css">
 <link rel="stylesheet" type="text/css" href="src/css/car.css">
-	<link rel="stylesheet" type="text/css" href="src/css/layout.css">
+<link rel="stylesheet" type="text/css" href="src/css/layout.css">
+
 </head>
+
+
 <body>
 
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+</nav>
 
+<div id="wrapper">
+<div class="container-fluid">
 
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-	
-  	<div>Здесь будет отображаться движение всего этого дела</div>
+<div class="row">
+<div id="goal"></div>
+<div id="timer"></div>
+  <button type="button" class="btn btn-primary" id="console-button">Run</button>
+</div>
 
-    <div id="canvas"></div>
-
-    <form class="col-12">
-        <div id="code-editor">
+<div class="row">
+  <div class="col">
+            <div id="code-editor">
             var t = "something";
             
 
             alert(t);
         </div>
 
-
-<button type="button" class="btn btn-primary" id="console-button">Run</button>
-    </form>   
   </div>
+  <div class="col">
+    
+  <div id="viewport">
+    <div id="canvas-wrapper">
+      <canvas id="canvas"></canvas>
+      <div id="canvas-dom"></div>      
+    </div>
+    </div>
+
+  </div>
+
+
 </div>
+<div>
 
 
 

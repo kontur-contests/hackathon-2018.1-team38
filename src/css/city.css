@@ -1,10 +1,15 @@
 
 
-
 .city-marker {
 	height: 6px;
 	width: 6px;
 
 	border-radius: 3px;
-	border: 1px solid orange;
+	background: #CCC;
+	border: 1px solid #FEFEFE;
+}
+
+
+.city-name {
+	font-size: 9pt;
 }

@@ -3,6 +3,7 @@ function Game() {
 
 
 	self.currentLevel = null;
+	self.currentLevelName = '';
 	self.codeEditor = null;
 	self.runButton = null;
 
@@ -13,7 +14,9 @@ function Game() {
 	self.setTextareaElement = setTextareaElement;
 	self.setRunButton = setRunButton;
 	self.setCanvas = setCanvas;
+	self.reloadLevel = reloadLevel;
 	self.init = init;
+	self.running = false;
 
 
 
@@ -23,42 +26,64 @@ function Game() {
 	var start = 0;
 
 	function init(levelName) {
-		var level = self.levelFactory(levelName);
+		
 
-		loadLevel(level);
+		loadLevel(levelName);
 
 		//requestAnimationFrame(step);
 	}
 
-	function loadLevel(level) {
+	function loadLevel(levelName) {
+		var level = self.levelFactory(levelName);
+
+		self.currentLevelName = levelName;
 		self.currentLevel = level;
 
+		self.canvasManager.clearLevel();
 		if(self.canvasManager != null) {
 			self.canvasManager.loadLevel(level);
 		}
 	}
 
+	function reloadLevel() {
+		if(this.currentLevel != null) {
+			loadLevel(this.currentLevelName);
+		}
+	}
+
+var previousTimestamp = null;
 	function run() {
 		if (self.currentLevel == null) {
 			return;
 		}
 
-		requestAnimationFrame(step);
+		if(self.running) {
+			previousTimestamp = null;
+			requestAnimationFrame(step);
+		}
 	}
 
+	
 	function step(timestamp) {
+		if(previousTimestamp == null) {
+			previousTimestamp = timestamp;
+		}
 
 
 
 
-		var progress = timestamp;
+		var delta = (timestamp - previousTimestamp)/1000;
 
 
-		self.currentLevel.simulate();
+		self.currentLevel.simulate(delta);
+
 		if(self.canvasManager != null) {
 			self.canvasManager.update();
 		}
-		  	console.log(timestamp);
+
+
+		previousTimestamp = timestamp;
+		  	
 		    requestAnimationFrame(step);
 	}
 
@@ -72,11 +97,18 @@ function Game() {
 
 	// entry point for start simulation
 	function setRunButton(element) {
-		$(element).bind("click", function () {
-			if (self.codeEditor != null && self.currentLevel != null) {
 
-				self.currentLevel.init(self.codeEditor.getValue());
-				self.run();
+		$(element).bind("click", function() {
+			if(self.codeEditor != null && self.currentLevel != null) {
+				if(!self.running) {
+					$(element).html("Restart");
+				}
+
+					self.reloadLevel();
+					self.running = true;
+					self.run();
+
+
 			}
 		});
 	}
@@ -93,8 +125,8 @@ function Game() {
   }
 
 
-	function setCanvas(element) {
-		self.canvasManager = new CanvasManager(element, 400, 700);
+	function setCanvas(wrapper, canvasDom, canvas, timer, goal) {
+		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, 700, 500);
 
 		if(self.currentLevel != null) {
 			self.canvasManager.loadLevel(self.currentLevel);
