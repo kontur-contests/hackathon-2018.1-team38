@@ -11,11 +11,11 @@ class Road {
 
 
   getRelativeCoordinate(relativeDistance) {
-  	if(relativeDistance > this.distance) {
-  		console.error("Relative disatance greater than distance");
+  	//if(this.distance - relativeDistance < -10) {
+  	//	console.error("Relative disatance greater than distance");
 
-  		return;
-  	}
+  	//	return;
+  	//}
 
   	var normalizeVector = {
   		x: (this.to.x - this.from.x)/this.distance,

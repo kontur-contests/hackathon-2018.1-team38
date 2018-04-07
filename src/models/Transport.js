@@ -2,7 +2,7 @@
 
 class Transport {
 
-  constructor(type, capacity, velocity, graph){
+  constructor(type, capacity, velocity, graph, level){
   	this.id = 1;
     this.type = type;
     this.capacity = capacity;
@@ -14,6 +14,9 @@ class Transport {
     this.currentCity = null;
 
     this.graph = graph;
+    this.level = level;
+
+    this.handlers = {};
   }
 
   load(packCity){
@@ -23,14 +26,14 @@ class Transport {
 
 
  	if(packCity == null){
- 		while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
+ 		while(this.currentCity.packages.length > 0 && this.packages.length < this.capacity){
 			this.packages.push(this.currentCity.packages.pop());
   		}
  	} else {
  		 
  		 var cityPackages = [];
 
- 		 while(this.currentCity.packages.length > 0 || this.packages.length < capacity)
+ 		 while(this.currentCity.packages.length > 0 && this.packages.length <  this.capacity)
  		 {
 		 	let pack = this.currentCity.packages.pop();
 
@@ -49,11 +52,18 @@ class Transport {
   		return;
   	}
 
-
-	this.packages = this.packages.filter(pack => pack.to === this.currentCity);
+  	let unloadPackages = this.packages.filter(pack => pack.to === this.currentCity);
+	this.level.currentGoal += unloadPackages.length;
+	
+	this.packages = unloadPackages;
   }
 
   finishDelivery(){
+  	var route = this.route.pop();
+  	this.currentCity = route.to;
+  	this.route = [];
+  	this.position = 0;
+
   	if(this.handlers["reachedDestination"] !== undefined) {
   		this.handlers["reachedDestination"]();
   	}
@@ -70,6 +80,9 @@ class Transport {
   }
 
   goTo(city) {
+  		if(this.currentCity == city) {
+  			return;
+  		}
 
 		this.route = this.getRouteToCity(city);
 		this.currentCity = null;

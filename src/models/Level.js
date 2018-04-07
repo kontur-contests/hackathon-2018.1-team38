@@ -35,7 +35,7 @@ class Level {
                 cityIndex = (cityIndex + 1) % this.cities.length;
               }
 
-             city.packages.push(new Package(city, this.cities[cityIndex]));
+             city.addPackage(new Package(city, this.cities[cityIndex]));
             }
 
             this.citiesPacks[city.name] = 0;
@@ -76,7 +76,7 @@ class Level {
       //car.position += car.velocity*delta;
       
       let fullDistance = car.route.reduce((sum, x) => sum + x.distance);
-      if(car.position >= fullDistance){
+      if(car.position >= fullDistance.distance){
         car.finishDelivery();
       }
     }
