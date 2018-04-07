@@ -17,11 +17,13 @@ function Game() {
 	self.setRunButton = setRunButton;
 	self.setCanvas = setCanvas;
 	self.setSuccessModal = setSuccessModal;
+	self.setWinnerModal = setWinnerModal;
 	self.setLevelName = setLevelName;
 	self.reloadLevel = reloadLevel;
 	self.init = init;
 	self.running = false;
 	self.successModal = null;
+	self.winnerModal = null;
 	self.levelNameLabel = null;
 
 
@@ -51,7 +53,7 @@ function Game() {
 			level = self.levelFactory(self.levels[0]);
 			levelName = self.levels[0];
 		}
-		
+
 		self.currentLevelName = levelName;
 		self.currentLevel = level;
 
@@ -118,8 +120,15 @@ function Game() {
 
 
 	function handleWin() {
-		if(self.successModal != null) {
+		var nextLevelIndex = self.levels.indexOf(self.currentLevelName);
+
+		if(self.successModal != null && nextLevelIndex + 1 < self.levels.length) {
 			self.successModal.modal('show');
+		} 
+
+
+		if(nextLevelIndex + 1== self.levels.length && self.winnerModal != null) {
+			self.winnerModal.modal('show');
 		}
 	}
 
@@ -128,6 +137,8 @@ function Game() {
 		var nextLevelIndex = self.levels.indexOf(self.currentLevelName);
 
 		if(nextLevelIndex + 1 >= self.levels.length) {
+
+
 			return;
 		}
 
@@ -166,6 +177,12 @@ function Game() {
 			self.successModal.modal('hide');
 			loadNextLevel();
 		});
+	}
+
+	function setWinnerModal(modal) {
+		self.winnerModal = $(modal);
+
+
 	}
 
 

@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
-
+  <title>Пошта - симулятор логистики</title>
 	 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 -->
 
@@ -54,7 +53,10 @@
 
 
    <div class="my-2 my-lg-0">
-    <span>Уровень </span><span id="levelName"></span>    
+      <button class="btn btn-outline-info my-2 my-sm-0"  id="reset-level" >
+ 
+      Сбросить уровень</button>
+    <span>Текущий уровень: </span><span id="levelName"></span>    
    </div>
 
   </div>
@@ -86,7 +88,7 @@
       <div id="canvas-dom"></div>  
       <div id="canvas-info">
         
-        lksd
+        
 
       </div>
     </div>
@@ -118,6 +120,22 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Остаться</button>
         <button type="button" class="btn btn-primary" id="nextLevel">Перейти</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Вы победили :)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
     </div>
   </div>
 </div>

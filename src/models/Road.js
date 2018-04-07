@@ -28,4 +28,11 @@ class Road {
 
   	return resultCoordinate;
   }
+
+  getDirection() {
+  	var leftOrRight = (this.to.x - this.from.x) > 0 ? 'right' : 'left';
+  	var topOrBottom = (this.to.y - this.from.y) > 0 ? 'bottom' : 'top';
+
+  	return leftOrRight + '-' +topOrBottom;
+  }
 }
