@@ -1,19 +1,60 @@
 function Game() {
 	var self = {};
 
-	self.levels = [];
-	self.run = run;
-	self.setTextareaElement = setTextareaElement;
-	self.setRunButton = setRunButton;
+	
+	self.currentLevel = null;
 	self.codeEditor = null;
 	self.runButton = null;
 
-	return self;
+	self.levelFactory = LevelFactory;
+
+	self.run = run;
+	self.setTextareaElement = setTextareaElement;
+	self.setRunButton = setRunButton;
+	self.init = init;
+
+
 	
 
-	function run() {
-		console.log("run");
+	return self;
+	
+	var start = 0;
+
+	function init(levelName) {
+		var level = self.levelFactory(levelName);
+
+		self.currentLevel = level;
+
+		//requestAnimationFrame(step);
 	}
+
+	function loadLevel(level) {
+
+	}
+
+	function run() {
+		if(self.currentLevel == null) {
+			return;
+		}
+
+		requestAnimationFrame(step);
+	}
+
+	function step(timestamp) {
+
+
+
+
+		var progress = timestamp ;
+
+		self.currentLevel.simulate();
+	
+		  	console.log(timestamp);
+		    requestAnimationFrame(step);
+
+	}
+
+	
 
 
 	function setTextareaElement(element) {
@@ -24,14 +65,11 @@ function Game() {
 	// entry point for start simulation
 	function setRunButton(element) {
 		$(element).bind("click", function() {
-			if(self.codeEditor != null) {
+			if(self.codeEditor != null && self.currentLevel != null) {
 
-
-				var someVar = "Text";
-
-				eval(self.codeEditor.getValue());
+				self.currentLevel.init(self.codeEditor.getValue());
+				self.run();
 			}
-
 		});
 	}
 }

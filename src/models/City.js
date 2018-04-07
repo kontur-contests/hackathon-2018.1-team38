@@ -9,5 +9,24 @@ class City {
     this.y = y;
     this.packages = [];
     this.packsPerLoop = packsPerLoop;
+
+
+    this.handlers = {};
   }
+
+  addPackage(arg) {
+  	this.packages.push(arg);
+
+  	if(this.handlers['newPackage'] == undefined) {
+  		return;
+  	}
+
+  	this.handlers['newPackage']();
+  }
+
+
+  on(eventType, handler) {
+  	this.handlers[eventType] = handler;
+  }
+
 }
