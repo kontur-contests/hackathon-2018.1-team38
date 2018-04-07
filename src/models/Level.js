@@ -2,7 +2,7 @@
 
 class Level {
 
-  constructor(cities, roads, transports, time, goalPackage){
+  constructor(cities, roads, transports, time, goalPackage) {
     this.cities = cities;
     this.roads = roads;
     this.transports = transports;
@@ -19,8 +19,8 @@ class Level {
   }
 
   init(codeForExecution) {
-  	var cities = this.cities;
+    var cities = this.cities;
 
-  	eval(codeForExecution);
+    eval(codeForExecution);
   }
 }

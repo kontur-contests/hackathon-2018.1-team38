@@ -1,7 +1,7 @@
 function Game() {
 	var self = {};
 
-	
+
 	self.currentLevel = null;
 	self.codeEditor = null;
 	self.runButton = null;
@@ -16,11 +16,10 @@ function Game() {
 	self.init = init;
 
 
-	
+
 
 	return self;
 
-	
 	var start = 0;
 
 	function init(levelName) {
@@ -40,7 +39,7 @@ function Game() {
 	}
 
 	function run() {
-		if(self.currentLevel == null) {
+		if (self.currentLevel == null) {
 			return;
 		}
 
@@ -52,20 +51,18 @@ function Game() {
 
 
 
-		var progress = timestamp ;
+		var progress = timestamp;
 
 
 		self.currentLevel.simulate();
-		
 		if(self.canvasManager != null) {
 			self.canvasManager.update();
 		}
 		  	console.log(timestamp);
 		    requestAnimationFrame(step);
-
 	}
 
-	
+
 
 
 	function setTextareaElement(element) {
@@ -75,14 +72,25 @@ function Game() {
 
 	// entry point for start simulation
 	function setRunButton(element) {
-		$(element).bind("click", function() {
-			if(self.codeEditor != null && self.currentLevel != null) {
+		$(element).bind("click", function () {
+			if (self.codeEditor != null && self.currentLevel != null) {
 
 				self.currentLevel.init(self.codeEditor.getValue());
 				self.run();
 			}
 		});
 	}
+
+	function goTo(city) {
+		var car = self.currentLevel.transports[0];
+		car.route = getRouteToCity(city);
+		currentCity = null;
+	}
+
+	function getRouteToCity(city) {
+		//TODO: тут будет поиcк по графу пока просто заглушка
+		return [self.currentLevel.roads[0], self.currentLevel.roads[1]];
+  }
 
 
 	function setCanvas(element) {
