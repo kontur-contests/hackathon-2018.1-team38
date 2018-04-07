@@ -11,4 +11,20 @@ class Transport {
     this.direction = false;
     this.position = 0;
   }
+
+  finishDelivery(){
+  	if(this.handlers["reachedDestination"] !== undefined) {
+  		this.handlers["reachedDestination"]();
+  	}
+  }
+
+  idle(city){
+  	if(this.handlers["idle"] !== undefined) {
+  		this.handlers["idle"](city);
+  	}
+  }
+
+  on(eventType, handler) {
+  	this.handlers[eventType] = handler;
+  }
 }
