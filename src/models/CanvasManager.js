@@ -306,8 +306,8 @@ class CanvasManager {
 
 
     label.innerHTML =  '['+transport.packages.length + '/'+transport.capacity+']';
-    label.style.left = this.cityDoms[city.name].style.left;
-    label.style.top = this.cityDoms[city.name].style.left;
+    label.style.left = transport.currentCity.x + 'px';
+    label.style.top = transport.currentCity.y + 'px';
   }
 
   drawRoads() {
