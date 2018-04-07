@@ -39,7 +39,7 @@ function LevelFactory(levelName) {
 
 		var graph = new Graph(map, cities);
 
-		var level = new Level(cities, roads, transports, 1000, 10, graph);
+		var level = new Level(cities, roads, transports, 1000, 100, graph);
 		
 		var transport = new Transport("Car", 10, truckVelocity, graph, level);
 		transport.currentCity = spb;

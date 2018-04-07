@@ -56,6 +56,8 @@ class Level {
 
         if(car.currentCity == null && car.route.length > 0) {
           car.position += car.velocity * delta;
+        } else {
+          car.idle(car.currentCity);
         }
      }
 
