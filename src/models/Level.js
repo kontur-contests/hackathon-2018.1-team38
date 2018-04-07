@@ -13,6 +13,8 @@ class Level {
     this.currentGoal = 0;
   }
 
+
+
   simulate(delta) {
 	   
 
@@ -23,6 +25,17 @@ class Level {
      }
 
      this.currentTime += delta;
+
+     if(this.currentTime > this.time) {
+        this.currentTime = this.time;
+        return 'fail';
+     }
+
+     if(this.currentGoal >= this.goalPackage) {
+      return 'win';
+     }
+
+     return 'running';
   }
 
   init(codeForExecution) {

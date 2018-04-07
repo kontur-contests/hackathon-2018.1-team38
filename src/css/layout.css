@@ -36,7 +36,7 @@
 }
 
 
-#goal, #timer {
+#goal, #timer, #status {
 	padding: 1em;
 	border: 1px solid #FEFEFE;
 }

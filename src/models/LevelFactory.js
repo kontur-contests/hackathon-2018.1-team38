@@ -43,7 +43,7 @@ function LevelFactory(levelName) {
 		roads.push(new Road(moscow, kazan));
 
 
-		return new Level(cities, roads, transports, 60, 10);
+		return new Level(cities, roads, transports, 12, 10);
 	}
 	
 }
