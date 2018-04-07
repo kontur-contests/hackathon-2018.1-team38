@@ -50,7 +50,14 @@ onload = function() {
 
 var defaultCode = `
 // Автомобиль для перевозки посылок
-// car
+/* car={
+    this.capacity; 		// вместимость
+    this.velocity; 		// скорость
+    this.packages;		// посылки на борту
+    this.position;		// текущее расстояние от считая последнего города
+    this.currentCity;	// текущий город в котром находится автомобиль
+}
+*/
 
 // Загрузка посылок которые нужно доставить в город 'city', 
 // если параметр не указан будут загружаться все возможные посылки
@@ -67,23 +74,27 @@ var defaultCode = `
 
 // Обработчик события 'простой', возникает когда автомобиль свободен и 
 // не знает что ему дальше делать
-car.on("idle", function() { 
+car.on("idle", function(car) { 
     //вставьте свой код сюда
 });
 
 // Обработчик события 'посылки доставлены', возникает когда автомобиль доставил груз
-car.on("reachedDestination", function() {
+car.on("reachedDestination", function(car) {
     //вставьте свой код сюда
 });
 
 // Доступные на уровне города
 cities.forEach(function(city){
-    
+    /* city = {
+        this.name = name; 	// название города
+        this.packages = [];	// посылки в городе
+    }
+    */
     // true если в городе есть посылки на отправку
     // city.hasPackages()
     
     // Обработчик события 'в городе появилась новая посылка'
-    city.on("newPackage", function() {
+    city.on("newPackage", function(city) {
         //вставьте свой код сюда
     });
 });
