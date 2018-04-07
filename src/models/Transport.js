@@ -51,7 +51,6 @@ class Transport {
 	this.packages = this.packages.filter(pack => pack.to === this.currentCity);
   }
 
-
   finishDelivery(){
   	if(this.handlers["reachedDestination"] !== undefined) {
   		this.handlers["reachedDestination"]();
