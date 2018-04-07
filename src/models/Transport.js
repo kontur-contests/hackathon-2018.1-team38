@@ -28,9 +28,8 @@ class Transport {
   }
 
   unload(){
-	this.packages = this.packages.filter(pack => pack.to === this.currentCity);
+    this.packages = this.packages.filter(pack => pack.to === this.currentCity);
   }
-
 
   finishDelivery(){
   	if(this.handlers["reachedDestination"] !== undefined) {

@@ -2,16 +2,15 @@
 
 class Level {
 
-  constructor(cities, roads, transports, time, goalPackage) {
+  constructor(cities, roads, transports, time, goalPackage, graph) {
     this.cities = cities;
     this.roads = roads;
     this.transports = transports;
     this.time = time;
     this.goalPackage = goalPackage;
-
+    this.graph = graph;
     this.currentTime = 0;
     this.currentGoal = 0;
-
     this.citiesPacks = {};
   }
 
