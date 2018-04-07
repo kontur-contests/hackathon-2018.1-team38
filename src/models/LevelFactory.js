@@ -10,6 +10,7 @@ function LevelFactory(levelName) {
 	levels["Новый свет"] = SecondLevel();
   	levels["Южное родео"] = ThirdLevel();
 	levels["Дальние горизонты"] = FourthLevel();
+	levels["Золотое Кольцо"] = FifthLevel();
 
 	if(!levels.hasOwnProperty(levelName)) {
 		return null;
@@ -142,6 +143,57 @@ function LevelFactory(levelName) {
 		var level = new Level(cities, roads, transports, 100, 30, graph);
 		var transport = new Transport("Car", 12, truckVelocity, graph, level);
 		transport.currentCity = spb;
+		transport.position = 0;
+		transports.push(transport);
+
+		return level;
+	}
+
+	function FifthLevel(){
+		var posad = new City("Сергиев Посад", 1000, 60, 430, 0.3);
+		var pereslavl = new City("Переславль-Залесский", 1000, 100, 330, 0.4);
+		var rostov = new City("Ростов", 1000, 130, 200, 0.2);
+		var yaroslavl = new City("Ярославль", 1000, 160, 110, 0.3);
+		var kostroma = new City("Кострома", 1000, 330, 50, 0.2);
+		var ivanovo = new City("Иваново", 1000, 450, 220, 0.3);
+		var suzdal = new City("Суздаль", 1000, 400, 350, 0.2);
+		var vladimir = new City("Владимир", 1000, 400, 450, 0.3);
+		var cities = [];
+		cities.push(posad);
+		cities.push(pereslavl);
+		cities.push(rostov);
+		cities.push(yaroslavl);
+		cities.push(kostroma);
+		cities.push(ivanovo);
+		cities.push(suzdal);
+		cities.push(vladimir);
+
+		var roads = [];
+		roads.push(new Road(posad, pereslavl));
+		roads.push(new Road(pereslavl, rostov));
+		roads.push(new Road(rostov, yaroslavl));
+		roads.push(new Road(yaroslavl, kostroma));
+		roads.push(new Road(kostroma, ivanovo));
+		roads.push(new Road(ivanovo, suzdal));
+		roads.push(new Road(suzdal, vladimir));
+		roads.push(new Road(vladimir, posad));
+
+		var map = {};
+		map[posad.name] = addEdge(posad, [pereslavl, vladimir]);
+		map[pereslavl.name] = addEdge(pereslavl, [posad, rostov]);
+		map[rostov.name] = addEdge(rostov, [pereslavl, yaroslavl]);
+		map[yaroslavl.name] = addEdge(yaroslavl, [rostov, kostroma]);
+		map[kostroma.name] = addEdge(kostroma, [yaroslavl, ivanovo]);
+		map[ivanovo.name] = addEdge(ivanovo, [kostroma, suzdal]);
+		map[suzdal.name] = addEdge(suzdal, [ivanovo, vladimir]);
+		map[vladimir.name] = addEdge(vladimir, [suzdal, posad]);
+		var graph = new Graph(map, cities);
+
+		var transports = [];
+
+		var level = new Level(cities, roads, transports, 100, 30, graph);
+		var transport = new Transport("Car", 12, truckVelocity, graph, level);
+		transport.currentCity = posad;
 		transport.position = 0;
 		transports.push(transport);
 
