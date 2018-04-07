@@ -24,6 +24,9 @@ class City {
   	this.handlers['newPackage']();
   }
 
+  hasPackages(){
+    return this.packages.length > 0;
+  }
 
   on(eventType, handler) {
   	this.handlers[eventType] = handler;
