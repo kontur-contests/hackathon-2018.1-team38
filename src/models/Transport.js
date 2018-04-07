@@ -37,7 +37,7 @@ class Transport {
  		 {
 		 	let pack = this.currentCity.packages.pop();
 
-		 	packCity === pack.to ? this.packages.push(pack) : cityPackage.push(pack);
+		 	packCity === pack.to ? this.packages.push(pack) : cityPackages.push(pack);
  		 }
 
  		 while(cityPackages.length > 0) {
