@@ -54,8 +54,8 @@ class Transport {
 
   	let unloadPackages = this.packages.filter(pack => pack.to === this.currentCity);
 	this.level.currentGoal += unloadPackages.length;
-	
-	this.packages = unloadPackages;
+
+	this.packages = this.packages.filter(pack => pack.to !== this.currentCity);
   }
 
   finishDelivery(){
