@@ -22,11 +22,16 @@ onload = function() {
 
 
 	game.setSuccessModal(document.getElementById('successModal'));
+	game.setWinnerModal(document.getElementById('winnerModal'));
 
 
-
-	//var currentLevel = window.localStorage.levelName || "Москва - Питер";
+	var currentLevel = window.localStorage.levelName || "Москва - Питер";
 	// load level from cache
-	game.init('invalid');
+	game.init(currentLevel);
 
+	$('#reset-level').bind('click', function() {
+		window.localStorage.removeItem('levelName');
+
+		game.init('invalid');
+	});
 }

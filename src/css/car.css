@@ -15,3 +15,29 @@ background-repeat: 1;
 .car-label {
 	font-size: 8pt;
 }
+
+
+.left-top, .left-bottom, .right-top, .right-bottom {
+		background-position:50% 50%;  /* Sets reference point to scale from */
+ background-size: cover;
+background-repeat: 1;
+}
+
+.left-top {
+background-image: url('../images/truck-left.png') !important;
+}
+
+
+.left-bottom {
+
+background-image: url('../images/truck-left.png') !important;
+}
+
+.right-top {
+background-image: url('../images/truck-right.png') !important;
+}
+
+
+.right-bottom {
+background-image: url('../images/truck-right.png') !important;
+}

@@ -12,7 +12,7 @@ function LevelFactory(levelName) {
 	if(!levels.hasOwnProperty(levelName)) {
 		return null;
 	}
-	
+
 	return levels[levelName];
 
 
@@ -43,7 +43,7 @@ function FirstLevel() {
 
 		var graph = new Graph(map, cities);
 
-		var level = new Level(cities, roads, transports, 50, 1, graph);
+		var level = new Level(cities, roads, transports, 10, 2, graph);
 		
 		var transport = new Transport("Car", 10, truckVelocity, graph, level);
 		transport.currentCity = moscow;
@@ -91,7 +91,7 @@ function FirstLevel() {
 
 		var graph = new Graph(map, cities);
 
-		var level = new Level(cities, roads, transports, 50, 1, graph);
+		var level = new Level(cities, roads, transports, 100, 10, graph);
 		
 		var transport = new Transport("Car", 10, truckVelocity, graph, level);
 		transport.currentCity = spb;

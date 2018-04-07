@@ -83,11 +83,13 @@ class CanvasManager {
 
   clearLevel() {
     this.canvasDom.innerHTML = '';
+    this.info.innerHTML ='';
     this.cityDoms = {};
     this.cityNameDoms = {};
     this.carDoms = {};
     this.carLabels = {};
 
+    this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
   loadLevel(level) {
@@ -215,8 +217,36 @@ class CanvasManager {
       this.drawTransportInCity(transport, carDom, carLabel);
     }
 
+
     if(transport.route.length > 0) {
-     this.info.innerHTML = 'Направляется в ' + transport.route[transport.route.length - 1].to.name;
+
+      let infoBuilder = 'Пункт назначения - ' + transport.route[transport.route.length - 1].to.name + '<br />';
+      
+      if(transport.packages.length > 0) {
+        infoBuilder += '<br/>Посылки<br/>';
+      }
+      var calculatePackages = {};
+
+
+      for(let i=0; i<transport.packages.length; i++) {
+        let pack = transport.packages[i];
+
+        if(calculatePackages.hasOwnProperty(pack.to.name)) {
+          calculatePackages[pack.to.name] ++;
+        } else {
+          calculatePackages[pack.to.name] = 1;
+        }          
+      }
+
+
+
+      for(var key in calculatePackages) {
+        infoBuilder += key + '[' + calculatePackages[key] + ']<br />';
+      }
+
+
+      this.info.innerHTML = infoBuilder;
+        
     } else {
       this.info.innerHTML = '';
     }
@@ -254,6 +284,14 @@ class CanvasManager {
 
     dom.style.left = (relativeCoordinate.x - this.carSprite.width/2) + 'px';
     dom.style.top = (relativeCoordinate.y - this.carSprite.height/2) + 'px';
+
+    var direction = currentRoute.getDirection();
+
+    if(!dom.hasOwnProperty('originalClassName'))  {
+      dom.originalClassName = dom.className;
+    }
+
+    dom.className = dom.originalClassName + " " + direction;
 
     label.innerHTML =  '['+transport.packages.length + '/'+transport.capacity+']';
     label.style.left = (relativeCoordinate.x - this.carSprite.width/2) + 'px';
