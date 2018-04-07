@@ -25,20 +25,48 @@
 
 <body>
 
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+  
+    <a class="navbar-brand" href="#">Пошта</a>
+
+
+      <i class="fa fa-play" aria-hidden="true"></i>
+      <button class="btn btn-outline-success my-2 my-sm-0"  id="console-button" >
+ 
+      Запустить</button>
+
+
+
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <span class="nav-link" >Осталось посылок <span id="goal"></span> </span>
+      </li>
+      <li class="nav-item active">
+        <span class="nav-link" >Осталось времени <span id="timer"></span> </span>
+      </li>
+    </ul>
+
+
+
+   <div class="my-2 my-lg-0">
+    <span>Уровень </span><span id="levelName"></span>    
+   </div>
+
+  </div>
+
 </nav>
+
+
 
 <div id="wrapper">
 <div class="container-fluid">
 
-<div class="row">
-<div id="goal"></div>
-<div id="timer"></div>
-<div id="status"></div>
-
-  <button type="button" class="btn btn-primary" id="console-button">Run</button>
-</div>
+<div style="margin-top: 3em"></div>
 
 <div class="row">
   <div class="col">
@@ -71,6 +99,28 @@
 <div>
 
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Поздравляю цель выполнена!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Перейдите на следующий уровень или останьтесь на этом.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Остаться</button>
+        <button type="button" class="btn btn-primary" id="nextLevel">Перейти</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

@@ -2,6 +2,8 @@ function Game() {
 	var self = {};
 
 
+	self.levels = ['Москва - Питер', 'Новый свет'];
+
 	self.currentLevel = null;
 	self.currentLevelName = '';
 	self.codeEditor = null;
@@ -14,10 +16,13 @@ function Game() {
 	self.setTextareaElement = setTextareaElement;
 	self.setRunButton = setRunButton;
 	self.setCanvas = setCanvas;
+	self.setSuccessModal = setSuccessModal;
+	self.setLevelName = setLevelName;
 	self.reloadLevel = reloadLevel;
 	self.init = init;
 	self.running = false;
-
+	self.successModal = null;
+	self.levelNameLabel = null;
 
 
 
@@ -33,15 +38,31 @@ function Game() {
 		//requestAnimationFrame(step);
 	}
 
+
+
+	function setLevelName(element) {
+		self.levelNameLabel = element;
+	}
+
 	function loadLevel(levelName) {
 		var level = self.levelFactory(levelName);
 
+		if(level == null) {
+			level = self.levelFactory(self.levels[0]);
+			levelName = self.levels[0];
+		}
+		
 		self.currentLevelName = levelName;
 		self.currentLevel = level;
 
 		self.canvasManager.clearLevel();
 		if(self.canvasManager != null) {
 			self.canvasManager.loadLevel(level);
+		}
+
+		if(self.levelNameLabel != null) {
+			window.localStorage.levelName = levelName;
+			self.levelNameLabel.innerHTML = levelName;
 		}
 	}
 
@@ -51,7 +72,7 @@ function Game() {
 		}
 	}
 
-var previousTimestamp = null;
+	var previousTimestamp = null;
 	function run() {
 		if (self.currentLevel == null) {
 			return;
@@ -77,6 +98,8 @@ var previousTimestamp = null;
 
 		var status = self.currentLevel.simulate(delta);
 
+
+
 		self.canvasManager.displayStatus(status);
 
 		if(self.canvasManager != null) {
@@ -88,11 +111,30 @@ var previousTimestamp = null;
 		  	
 	  	if(status == 'running') {
 		    requestAnimationFrame(step);
+		} else if(status == 'win') {
+			handleWin();
 		}
 	}
 
 
+	function handleWin() {
+		if(self.successModal != null) {
+			self.successModal.modal('show');
+		}
+	}
 
+
+	function loadNextLevel() {
+		var nextLevelIndex = self.levels.indexOf(self.currentLevelName);
+
+		if(nextLevelIndex + 1 >= self.levels.length) {
+			return;
+		}
+
+		self.running = false;
+		previousTimestamp = null;
+		loadLevel(self.levels[nextLevelIndex + 1]);
+	}
 
 	function setTextareaElement(element) {
 		self.codeEditor = ace.edit(element);
@@ -104,9 +146,7 @@ var previousTimestamp = null;
 
 		$(element).bind("click", function() {
 			if(self.codeEditor != null && self.currentLevel != null) {
-				if(!self.running) {
-					$(element).html("Restart");
-				}
+
 
 					self.reloadLevel();
 					self.currentLevel.init(self.codeEditor.getValue());
@@ -119,6 +159,15 @@ var previousTimestamp = null;
 	}
 
 	
+	function setSuccessModal(modal) {
+		self.successModal = $(modal);
+
+		self.successModal.find("#nextLevel").bind("click", function() {
+			self.successModal.modal('hide');
+			loadNextLevel();
+		});
+	}
+
 
 	function getRouteToCity(city) {
 		//TODO: тут будет поиcк по графу пока просто заглушка
@@ -126,8 +175,8 @@ var previousTimestamp = null;
   }
 
 
-	function setCanvas(wrapper, canvasDom, canvas, timer, goal, status, info) {
-		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, status, info, 700, 500);
+	function setCanvas(wrapper, canvasDom, canvas, timer, goal, status, info, runButton) {
+		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, status, info, runButton, 700, 500);
 
 		if(self.currentLevel != null) {
 			self.canvasManager.loadLevel(self.currentLevel);

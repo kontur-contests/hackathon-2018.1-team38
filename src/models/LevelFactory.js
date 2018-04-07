@@ -1,14 +1,61 @@
 function LevelFactory(levelName) {
 	
+
+
 	var truckVelocity = 40;
 	
 	var levels = {};
-	levels["first"] = FirstLevel();
+	levels["Москва - Питер"] = FirstLevel();
+	levels["Новый свет"] = SecondLevel();
+
+
+	if(!levels.hasOwnProperty(levelName)) {
+		return null;
+	}
 	
 	return levels[levelName];
 
 
-	function FirstLevel() {
+function FirstLevel() {
+
+
+		var cities = [];
+
+		var moscow = new City("Москва", 1000, 100, 70, 0.7);
+		var spb = new City("Санкт-Петербург", 1000, 10, 20, 0.2);
+
+
+		cities.push(moscow);
+		cities.push(spb);
+
+		var transports = [];
+
+	
+
+
+		var roads = [];
+		roads.push(new Road(moscow, spb));
+
+		var map = {};
+		map[moscow.name] = addEdge(moscow, [spb]);
+		map[spb.name] = addEdge(spb, [moscow]);
+
+
+		var graph = new Graph(map, cities);
+
+		var level = new Level(cities, roads, transports, 50, 1, graph);
+		
+		var transport = new Transport("Car", 10, truckVelocity, graph, level);
+		transport.currentCity = moscow;
+	
+		transport.position = 0;
+
+		transports.push(transport);
+
+		return level;
+	}
+
+	function SecondLevel() {
 
 
 		var cities = [];
@@ -44,7 +91,7 @@ function LevelFactory(levelName) {
 
 		var graph = new Graph(map, cities);
 
-		var level = new Level(cities, roads, transports, 1000, 100, graph);
+		var level = new Level(cities, roads, transports, 50, 1, graph);
 		
 		var transport = new Transport("Car", 10, truckVelocity, graph, level);
 		transport.currentCity = spb;
