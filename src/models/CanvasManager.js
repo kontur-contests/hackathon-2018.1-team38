@@ -2,14 +2,16 @@
 
 class CanvasManager {
 
-  constructor(wrapper, canvasDom, canas, timer, goal, status, info, width, height){
+  constructor(wrapper, canvasDom, canas, timer, goal, status, info, runButton, width, height){
     this.canvasDom = canvasDom;
     this.wrapper = wrapper;
     this.canvas = canvas;
     this.timer = timer;
     this.goal = goal;
-    this.status = status;
+   // this.status = status;
 
+
+    this.runButton = $(runButton);
     this.info = info;
 
     this.previousStatus = null;
@@ -50,18 +52,44 @@ class CanvasManager {
       return;
     }
 
-
-    this.status.innerHTML = status;
+    
+    //this.status.innerHTML = status;
     this.previousStatus = status;
+
+
+    if(status == 'win') {
+      this.runButton.html('Запустить')
+    this.runButton.removeClass('btn-outline-warning');
+     this.runButton.removeClass('btn-outline-danger');
+     this.runButton.addClass('btn-outline-success');
+    }
+
+    if(status == 'running') {
+      this.runButton.html('Перезапустить')
+
+      this.runButton.removeClass('btn-outline-success');
+     this.runButton.removeClass('btn-outline-danger');
+     this.runButton.addClass('btn-outline-warning');
+    }
+
+    if(status == 'fail') {
+     this.runButton.html('Начать снова') 
+
+     this.runButton.removeClass('btn-outline-success');
+     this.runButton.removeClass('btn-outline-warning');
+     this.runButton.addClass('btn-outline-danger');
+    }
   }
 
   clearLevel() {
     this.canvasDom.innerHTML = '';
+    this.info.innerHTML ='';
     this.cityDoms = {};
     this.cityNameDoms = {};
     this.carDoms = {};
     this.carLabels = {};
 
+    this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
   loadLevel(level) {
@@ -154,8 +182,8 @@ class CanvasManager {
 
       var cityDom = this.cityDoms[city.name];
 
-      cityDom.style.left = (city.x - 3) + "px";
-      cityDom.style.top = (city.y - 3) + "px";
+      cityDom.style.left = (city.x - 5) + "px";
+      cityDom.style.top = (city.y - 5) + "px";
     }
   }
 
@@ -189,8 +217,36 @@ class CanvasManager {
       this.drawTransportInCity(transport, carDom, carLabel);
     }
 
+
     if(transport.route.length > 0) {
-     this.info.innerHTML = 'Направляется в ' + transport.route[transport.route.length - 1].to.name;
+
+      let infoBuilder = 'Пункт назначения - ' + transport.route[transport.route.length - 1].to.name + '<br />';
+      
+      if(transport.packages.length > 0) {
+        infoBuilder += '<br/>Посылки<br/>';
+      }
+      var calculatePackages = {};
+
+
+      for(let i=0; i<transport.packages.length; i++) {
+        let pack = transport.packages[i];
+
+        if(calculatePackages.hasOwnProperty(pack.to.name)) {
+          calculatePackages[pack.to.name] ++;
+        } else {
+          calculatePackages[pack.to.name] = 1;
+        }          
+      }
+
+
+
+      for(var key in calculatePackages) {
+        infoBuilder += key + '[' + calculatePackages[key] + ']<br />';
+      }
+
+
+      this.info.innerHTML = infoBuilder;
+        
     } else {
       this.info.innerHTML = '';
     }
@@ -229,6 +285,14 @@ class CanvasManager {
     dom.style.left = (relativeCoordinate.x - this.carSprite.width/2) + 'px';
     dom.style.top = (relativeCoordinate.y - this.carSprite.height/2) + 'px';
 
+    var direction = currentRoute.getDirection();
+
+    if(!dom.hasOwnProperty('originalClassName'))  {
+      dom.originalClassName = dom.className;
+    }
+
+    dom.className = dom.originalClassName + " " + direction;
+
     label.innerHTML =  '['+transport.packages.length + '/'+transport.capacity+']';
     label.style.left = (relativeCoordinate.x - this.carSprite.width/2) + 'px';
     label.style.top = (relativeCoordinate.y + this.carSprite.height/2) + 'px';
@@ -262,9 +326,30 @@ class CanvasManager {
       this.ctx.setLineDash([]);
       this.ctx.moveTo(road.from.x,road.from.y);
       this.ctx.lineTo(road.to.x,road.to.y);
-      this.ctx.strokeStyle = '#ccc';
+      this.ctx.strokeStyle = '#fff';
+
+      this.ctx.lineWidth=8;
+      this.ctx.stroke();
 
 
+      this.ctx.beginPath();
+      this.ctx.setLineDash([]);
+      this.ctx.moveTo(road.from.x,road.from.y);
+      this.ctx.lineTo(road.to.x,road.to.y);
+      this.ctx.strokeStyle = '#333';
+
+      this.ctx.lineWidth=7;
+      this.ctx.stroke();
+
+
+
+      this.ctx.beginPath();
+      this.ctx.setLineDash([4, 4]);
+      this.ctx.moveTo(road.from.x,road.from.y);
+      this.ctx.lineTo(road.to.x,road.to.y);
+      this.ctx.strokeStyle = '#fff';
+
+      this.ctx.lineWidth=1;
       this.ctx.stroke();
     }
   }

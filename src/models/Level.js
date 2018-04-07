@@ -98,6 +98,22 @@ class Level {
 		  let city = this.cities.find(x=>x.name == cityName);
       car.goto(city);
     }
-    eval(codeForExecution);
+    var context = {
+      car:car,
+      cities: cities
+    };
+    try{
+      this.evalInContext(codeForExecution, context);
+    }
+    catch (err){
+      var element = document.createElement("p");
+      element.innerHTML = err.message;
+      document.getElementById('error-container').appendChild(element);
+    }
+  }
+
+  evalInContext(js, context) {
+    //# Return the results of the in-line anonymous function we .call with the passed context
+    return function() { return eval(js); }.call(context);
   }
 }

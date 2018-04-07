@@ -1,12 +1,19 @@
 function LevelFactory(levelName) {
 	
+
+
 	var truckVelocity = 40;
 	
 	var levels = {};
-	levels["first"] = FirstLevel();
-	levels["second"] = SecondLevel();
-	levels["third"] = ThirdLevel();
+
+	levels["Москва - Питер"] = FirstLevel();
+	levels["Новый свет"] = SecondLevel();
+  levels["third"] = ThirdLevel();
 	levels["fourth"] = FourthLevel();
+
+	if(!levels.hasOwnProperty(levelName)) {
+		return null;
+	}
 
 	return levels[levelName];
 
@@ -91,7 +98,6 @@ function LevelFactory(levelName) {
 		var graph = new Graph(map, cities);
 
 		var transports = [];
-
 		var level = new Level(cities, roads, transports, 60, 20, graph);
 		var transport = new Transport("Car", 10, truckVelocity, graph, level);
 		transport.currentCity = spb;

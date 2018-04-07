@@ -96,4 +96,8 @@ class Transport {
 
   	return roads;
   }
+
+  isMoving(){
+    return this.currentCity == null;
+  }
 }
