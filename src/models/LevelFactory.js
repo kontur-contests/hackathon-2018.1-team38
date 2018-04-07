@@ -8,8 +8,8 @@ function LevelFactory(levelName) {
 
 	levels["Москва - Питер"] = FirstLevel();
 	levels["Новый свет"] = SecondLevel();
-  levels["third"] = ThirdLevel();
-	levels["fourth"] = FourthLevel();
+  	levels["Южное родео"] = ThirdLevel();
+	levels["Дальние горизонты"] = FourthLevel();
 
 	if(!levels.hasOwnProperty(levelName)) {
 		return null;
