@@ -179,6 +179,7 @@ class CanvasManager {
     var relativeDistance = 0;
     if(transport.route.length == 1) {
       currentRoute = transport.route[0];
+      relativeDistance = transport.position;
     } else {
       var previousRouteDistance = 0;
       for(var i=0; i<transport.route.length; i++) {

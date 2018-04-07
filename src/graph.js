@@ -115,18 +115,39 @@ var Graph = (function (undefined) {
 		}
 	}
 
-	var Graph = function (map) {
+	var Graph = function (map, cities) {
 		this.map = map;
+		this.cities = cities;
 	}
 
 	Graph.prototype.findShortestPath = function (start, end) {
+		var result = [];
+
+
 		if (Object.prototype.toString.call(start) === '[object Array]') {
-			return findShortestPath(this.map, start);
+			result = findShortestPath(this.map, start);
 		} else if (arguments.length === 2) {
-			return findShortestPath(this.map, [start, end]);
+			result = findShortestPath(this.map, [start, end]);
 		} else {
-			return findShortestPath(this.map, toArray(arguments));
+			result = findShortestPath(this.map, toArray(arguments));
 		}
+
+		var pathCities = [];
+
+		var previousPoint = null;
+		for(let i=0; i<result.length; i++) {
+			
+			let currentPoint =this.cities.find(x => x.name == result[i]);
+			
+			if(previousPoint != null) {
+				var road = new Road(previousPoint, currentPoint);
+				pathCities.push(road);
+			}
+
+			previousPoint = currentPoint;
+		}
+
+		return pathCities;
 	}
 
 	Graph.findShortestPath = function (map, start, end) {

@@ -2,7 +2,7 @@
 
 class Transport {
 
-  constructor(type, capacity, velocity){
+  constructor(type, capacity, velocity, graph, level){
   	this.id = 1;
     this.type = type;
     this.capacity = capacity;
@@ -12,26 +12,58 @@ class Transport {
     this.direction = false;
     this.position = 0;
     this.currentCity = null;
+
+    this.graph = graph;
+    this.level = level;
+
+    this.handlers = {};
   }
 
   load(packCity){
+  	if(this.currentCity == null) {
+  		return;
+  	}
+
+
  	if(packCity == null){
- 		while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
+ 		while(this.currentCity.packages.length > 0 && this.packages.length < this.capacity){
 			this.packages.push(this.currentCity.packages.pop());
   		}
  	} else {
- 	//	while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
- 			var pack = this.currentCity.packages.pop();
-			packCity === pack.to ? this.packages.push(pack) : this.currentCity.packages.push(pack);
-	//	}
+ 		 
+ 		 var cityPackages = [];
+
+ 		 while(this.currentCity.packages.length > 0 && this.packages.length <  this.capacity)
+ 		 {
+		 	let pack = this.currentCity.packages.pop();
+
+		 	packCity === pack.to ? this.packages.push(pack) : cityPackage.push(pack);
+ 		 }
+
+ 		 while(cityPackages.length > 0) {
+ 		 	this.currentCity.packages.push(cityPackages.pop());
+ 		 }
+ 		 
  	}
   }
 
   unload(){
-    this.packages = this.packages.filter(pack => pack.to === this.currentCity);
+	if(this.currentCity == null) {
+  		return;
+  	}
+
+  	let unloadPackages = this.packages.filter(pack => pack.to === this.currentCity);
+	this.level.currentGoal += unloadPackages.length;
+	
+	this.packages = unloadPackages;
   }
 
   finishDelivery(){
+  	var route = this.route.pop();
+  	this.currentCity = route.to;
+  	this.route = [];
+  	this.position = 0;
+
   	if(this.handlers["reachedDestination"] !== undefined) {
   		this.handlers["reachedDestination"]();
   	}
@@ -48,12 +80,18 @@ class Transport {
   }
 
   goTo(city) {
-		this.route = getRouteToCity(city);
+  		if(this.currentCity == city) {
+  			return;
+  		}
+
+		this.route = this.getRouteToCity(city);
 		this.currentCity = null;
   }
 
   getRouteToCity(city) {
-		//TODO: тут будет поиcк по графу пока просто заглушка
-		return [self.currentLevel.roads[0], self.currentLevel.roads[1]];
+  	var roads =  this.graph.findShortestPath(this.currentCity.name, city.name);
+
+
+  	return roads;
   }
 }
