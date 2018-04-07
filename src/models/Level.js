@@ -99,16 +99,16 @@ class Level {
       car.goto(city);
     }
     var context = {
-      car:car,
+      car: car,
       cities: cities
     };
     try{
       this.evalInContext(codeForExecution, context);
     }
     catch (err){
-      var element = document.createElement("p");
-      element.innerHTML = err.message;
-      document.getElementById('error-container').appendChild(element);
+      var $errorModal = $("#error-modal");
+      $errorModal.find(".modal-body").append("<p>" + err.message + "</p> <p>Для просмотра подробностей откройте консоль разработчика</p>");
+      $errorModal.modal("show");
     }
   }
 
