@@ -21,7 +21,7 @@ class City {
   		return;
   	}
 
-  	this.handlers['newPackage']();
+  	this.handlers['newPackage'](this);
   }
 
   hasPackages(){

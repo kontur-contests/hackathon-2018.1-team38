@@ -65,13 +65,13 @@ class Transport {
   	this.position = 0;
 
   	if(this.handlers["reachedDestination"] !== undefined) {
-  		this.handlers["reachedDestination"]();
+  		this.handlers["reachedDestination"](this);
   	}
   }
 
   idle(city){
   	if(this.handlers["idle"] !== undefined) {
-  		this.handlers["idle"](city);
+  		this.handlers["idle"](this);
   	}
   }
 
