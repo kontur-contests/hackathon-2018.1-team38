@@ -197,7 +197,7 @@ function Game() {
 	}
 
 	function refreshSpeedIndicator() {
-
+		self.timeMultipler = Number(self.timeMultipler.toFixed(1));
 
 		if(self.speedIndicator != null) {
 			self.speedIndicator.innerHTML = self.timeMultipler.toFixed(1);
