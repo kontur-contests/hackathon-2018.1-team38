@@ -15,19 +15,39 @@ class Transport {
   }
 
   load(packCity){
+  	if(this.currentCity == null) {
+  		return;
+  	}
+
+
  	if(packCity == null){
  		while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
 			this.packages.push(this.currentCity.packages.pop());
   		}
  	} else {
- 	//	while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
- 			var pack = this.currentCity.packages.pop();
-			packCity === pack.to ? this.packages.push(pack) : this.currentCity.packages.push(pack);
-	//	}
+ 		 
+ 		 var cityPackages = [];
+
+ 		 while(this.currentCity.packages.length > 0 || this.packages.length < capacity)
+ 		 {
+		 	let pack = this.currentCity.packages.pop();
+
+		 	packCity === pack.to ? this.packages.push(pack) : cityPackage.push(pack);
+ 		 }
+
+ 		 while(cityPackages.length > 0) {
+ 		 	this.currentCity.packages.push(cityPackages.pop());
+ 		 }
+ 		 
  	}
   }
 
   unload(){
+	if(this.currentCity == null) {
+  		return;
+  	}
+
+
 	this.packages = this.packages.filter(pack => pack.to === this.currentCity);
   }
 
