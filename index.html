@@ -15,6 +15,9 @@
 
 
 
+<link rel="stylesheet" type="text/css" href="src/css/entities.css">
+<link rel="stylesheet" type="text/css" href="src/css/city.css">
+<link rel="stylesheet" type="text/css" href="src/css/car.css">
 	<link rel="stylesheet" type="text/css" href="src/css/layout.css">
 </head>
 <body>
@@ -25,15 +28,10 @@
   <div class="row h-100 justify-content-center align-items-center">
 	
   	<div>Здесь будет отображаться движение всего этого дела</div>
+
+    <div id="canvas"></div>
+
     <form class="col-12">
-      <div class="form-group">
-        <label for="formGroupExampleInput">Example label</label>
-
-      </div>
-
-
-      
-
         <div id="code-editor">
             var t = "something";
             
@@ -66,6 +64,7 @@
 
 <script src="src/models/Level.js"></script>
 <script src="src/models/LevelFactory.js"></script>
+<script src="src/models/CanvasManager.js"></script>
 <script src="src/models/City.js"></script>
 <script src="src/models/Package.js"></script>
 <script src="src/models/Road.js"></script>

@@ -6,11 +6,13 @@ function Game() {
 	self.codeEditor = null;
 	self.runButton = null;
 
+	self.canvasManager = null;
 	self.levelFactory = LevelFactory;
 
 	self.run = run;
 	self.setTextareaElement = setTextareaElement;
 	self.setRunButton = setRunButton;
+	self.setCanvas = setCanvas;
 	self.init = init;
 
 
@@ -23,13 +25,17 @@ function Game() {
 	function init(levelName) {
 		var level = self.levelFactory(levelName);
 
-		self.currentLevel = level;
+		loadLevel(level);
 
 		//requestAnimationFrame(step);
 	}
 
 	function loadLevel(level) {
+		self.currentLevel = level;
 
+		if(self.canvasManager != null) {
+			self.canvasManager.loadLevel(level);
+		}
 	}
 
 	function run() {
@@ -47,11 +53,13 @@ function Game() {
 
 		var progress = timestamp;
 
+
 		self.currentLevel.simulate();
-
-		console.log(timestamp);
-		requestAnimationFrame(step);
-
+		if(self.canvasManager != null) {
+			self.canvasManager.update();
+		}
+		  	console.log(timestamp);
+		    requestAnimationFrame(step);
 	}
 
 
@@ -82,5 +90,14 @@ function Game() {
 	function getRouteToCity(city) {
 		//TODO: тут будет поиcк по графу пока просто заглушка
 		return [self.currentLevel.roads[0], self.currentLevel.roads[1]];
+  }
+
+
+	function setCanvas(element) {
+		self.canvasManager = new CanvasManager(element, 400, 700);
+
+		if(self.currentLevel != null) {
+			self.canvasManager.loadLevel(self.currentLevel);
+		}
 	}
 }
