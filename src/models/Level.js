@@ -11,12 +11,46 @@ class Level {
 
     this.currentTime = 0;
     this.currentGoal = 0;
+
+    this.citiesPacks = {};
   }
 
 
 
+
+
+  populatePackages(delta) {
+      this.cities.forEach(
+
+        function(city) {
+          this.citiesPacks[city.name] = this.citiesPacks[city.name] || 0;
+          this.citiesPacks[city.name] += (city.packsPerLoop*delta);
+
+
+          if(this.citiesPacks[city.name] > 1) {
+            let numberOfNewPackage = (~~(this.citiesPacks[city.name]));
+
+            for(var i=0; i<numberOfNewPackage; i++) {
+              let cityIndex = (~~(Math.random() * this.cities.length));
+              if(this.cities[cityIndex] == city) {
+                cityIndex = (cityIndex + 1) % this.cities.length;
+              }
+
+             city.packages.push(new Package(city, this.cities[cityIndex]));
+            }
+
+            this.citiesPacks[city.name] = 0;
+          }          
+          
+      }
+
+      ,this);
+  }
+
+
   simulate(delta) {
-	   
+      
+    this.populatePackages(delta);	   
 
      for(var i=0; i<this.transports.length; i++) {
         let car = this.transports[i];
