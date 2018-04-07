@@ -1,0 +1,7 @@
+.car-marker {
+		height: 6px;
+	width: 6px;
+
+	border-radius: 3px;
+	border: 1px solid red;
+}

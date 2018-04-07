@@ -6,6 +6,7 @@ var city = new City();
 onload = function() {
 	game.setTextareaElement(document.getElementById('code-editor'));
 	game.setRunButton(document.getElementById('console-button'));
+	game.setCanvas(document.getElementById('canvas'));
 	
 
 

@@ -13,7 +13,7 @@ function LevelFactory(levelName) {
 
 		var cities = [];
 
-		var moscow = new City("Москва", 1000, 30, 70);
+		var moscow = new City("Москва", 1000, 100, 70);
 		var spb = new City("Санкт-Петербург", 1000, 10, 20);
 		
 
