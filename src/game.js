@@ -116,13 +116,11 @@ function Game() {
 		}
 	}
 
-
 	function handleWin() {
 		if(self.successModal != null) {
 			self.successModal.modal('show');
 		}
 	}
-
 
 	function loadNextLevel() {
 		var nextLevelIndex = self.levels.indexOf(self.currentLevelName);
@@ -147,7 +145,7 @@ function Game() {
 		$(element).bind("click", function() {
 			if(self.codeEditor != null && self.currentLevel != null) {
 
-
+					$("#error-modal .modal-body").empty();
 					self.reloadLevel();
 					self.currentLevel.init(self.codeEditor.getValue());
 					self.running = true;
@@ -158,7 +156,6 @@ function Game() {
 		});
 	}
 
-	
 	function setSuccessModal(modal) {
 		self.successModal = $(modal);
 
