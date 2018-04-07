@@ -103,7 +103,7 @@ class Level {
       cities: cities
     };
     try{
-      this.evalInContext(codeForExecution, context);
+      this.evalInContext(codeForExecution, context, car, cities);
     }
     catch (err){
       var $errorModal = $("#error-modal");
@@ -112,8 +112,8 @@ class Level {
     }
   }
 
-  evalInContext(js, context) {
+  evalInContext(js, context, car, cities) {
     //# Return the results of the in-line anonymous function we .call with the passed context
-    return function() { return eval(js); }.call(context);
+    return function(car, cities) { return eval(js); }.call(context, car, cities);
   }
 }
