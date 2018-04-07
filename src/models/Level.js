@@ -8,14 +8,21 @@ class Level {
     this.transports = transports;
     this.time = time;
     this.goalPackage = goalPackage;
+
+    this.currentTime = 0;
+    this.currentGoal = 0;
   }
 
   simulate(delta) {
-	   var needGenerate = (~~(Math.random() * 100)) > 20;
+	   
 
-	   if(needGenerate) {
-		    this.cities[0].addPackage(new Package(this.cities[0], this.cities[1]));
-	   }
+     for(var i=0; i<this.transports.length; i++) {
+        var car = this.transports[i];
+
+        car.position += car.velocity * delta;
+     }
+
+     this.currentTime += delta;
   }
 
   init(codeForExecution) {

@@ -3,6 +3,7 @@
 class Transport {
 
   constructor(type, capacity, velocity){
+  	this.id = 1;
     this.type = type;
     this.capacity = capacity;
     this.velocity = velocity;
@@ -10,6 +11,7 @@ class Transport {
     this.route = null;
     this.direction = false;
     this.position = 0;
+    this.currentCity = null;
   }
 
   finishDelivery(){
