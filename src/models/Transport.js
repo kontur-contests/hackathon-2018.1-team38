@@ -3,6 +3,7 @@
 class Transport {
 
   constructor(type, capacity, velocity){
+  	this.id = 1;
     this.type = type;
     this.capacity = capacity;
     this.velocity = velocity;
@@ -27,7 +28,7 @@ class Transport {
   unload(){
 	this.packages = this.packages.filter(pack => pack.to === this.currentCity);
   }
-}
+
 
   finishDelivery(){
   	if(this.handlers["reachedDestination"] !== undefined) {

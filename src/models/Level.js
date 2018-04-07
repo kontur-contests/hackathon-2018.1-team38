@@ -8,25 +8,45 @@ class Level {
     this.transports = transports;
     this.time = time;
     this.goalPackage = goalPackage;
+
+    this.currentTime = 0;
+    this.currentGoal = 0;
   }
 
-  simulate(delta) {
-	   var needGenerate = (~~(Math.random() * 100)) > 20;
 
-	   if(needGenerate) {
-		    this.cities[0].addPackage(new Package(this.cities[0], this.cities[1]));
-	   }
+
+  simulate(delta) {
+	   
+
+     for(var i=0; i<this.transports.length; i++) {
+        var car = this.transports[i];
+
+        car.position += car.velocity * delta;
+     }
+
+     this.currentTime += delta;
+
+     if(this.currentTime > this.time) {
+        this.currentTime = this.time;
+        return 'fail';
+     }
+
+     if(this.currentGoal >= this.goalPackage) {
+      return 'win';
+     }
 
     //move car
     let car = this.transports[0]; 
     if(car.currentCity == null){
-      car.position += car.velocity*delta;
+      //car.position += car.velocity*delta;
       
       let fullDistance = car.route.reduce((sum, x) => sum + x.distance);
       if(car.position >= fullDistance){
         car.finishDelivery();
       }
     }
+
+     return 'running';
   }
 
   init(codeForExecution) {

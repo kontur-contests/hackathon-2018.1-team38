@@ -1,7 +1,13 @@
 .car-marker {
-		height: 6px;
-	width: 6px;
+	height: 15px;
+	width: 20px;
 
-	border-radius: 3px;
-	border: 1px solid red;
+	background-image: url('../images/truck-right.png');
+
+	background-position:50% 50%;  /* Sets reference point to scale from */
+ background-size: cover;
+background-repeat: 1;
+
 }
+
+
