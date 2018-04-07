@@ -24,8 +24,6 @@
 
 
 #canvas-dom {
-	position: absolute;
-
 
 	position: relative;
 }
@@ -33,6 +31,19 @@
 #canvas {
 	position: absolute;
 	
+}
+
+#canvas-info {
+	position: absolute;
+	width: 100px;
+	background: rgba(0,0,0,0.1);
+	color: #eee;
+
+	font-size: 8pt;
+	font-family: 'Consolas';
+
+	right: 0;
+	top: 0;
 }
 
 

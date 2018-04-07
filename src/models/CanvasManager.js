@@ -2,13 +2,15 @@
 
 class CanvasManager {
 
-  constructor(wrapper, canvasDom, canas, timer, goal, status, width, height){
+  constructor(wrapper, canvasDom, canas, timer, goal, status, info, width, height){
     this.canvasDom = canvasDom;
     this.wrapper = wrapper;
     this.canvas = canvas;
     this.timer = timer;
     this.goal = goal;
     this.status = status;
+
+    this.info = info;
 
     this.previousStatus = null;
 
@@ -33,6 +35,7 @@ class CanvasManager {
     this.cityDoms = {};
     this.cityNameDoms = {};
     this.carDoms = {};
+    this.carLabels = {};
 
 
 
@@ -57,6 +60,7 @@ class CanvasManager {
     this.cityDoms = {};
     this.cityNameDoms = {};
     this.carDoms = {};
+    this.carLabels = {};
 
   }
 
@@ -82,6 +86,10 @@ class CanvasManager {
       this.carDoms[transport.id] = this.createCarDom(transport);
 
       this.canvasDom.appendChild(this.carDoms[transport.id]);
+      
+      this.carLabels[transport.id] = this.createCarLabelDom(transport);
+      
+      this.canvasDom.appendChild(this.carLabels[transport.id]);
     }
 
     this.drawBackground();
@@ -114,6 +122,13 @@ class CanvasManager {
     return element;
   }
 
+  createCarLabelDom() {
+        var element = document.createElement('div');
+    element.className = 'car-label';
+
+    return element;
+  }
+
   update() {
 
     //this.drawBackground();
@@ -122,6 +137,7 @@ class CanvasManager {
     this.drawGoal(this.level.currentGoal, this.level.goalPackage);
     this.drawCityLabels(this.level.cities);
     this.drawTransports(this.level.transports);
+
   }
 
   drawTimer(currentTime, time)  {
@@ -165,16 +181,23 @@ class CanvasManager {
 
   drawTransport(transport) {
     var carDom = this.carDoms[transport.id];
+    var carLabel = this.carLabels[transport.id];
 
     if(transport.route != null && transport.route.length > 0) {
-      this.drawTransportMove(transport, carDom);
+      this.drawTransportMove(transport, carDom, carLabel);
     } else if(transport.currentCity != null) {
-      this.drawTransportInCity(transport, carDom);
+      this.drawTransportInCity(transport, carDom, carLabel);
+    }
+
+    if(transport.route.length > 0) {
+     this.info.innerHTML = 'Направляется в ' + transport.route[transport.route.length - 1].to.name;
+    } else {
+      this.info.innerHTML = '';
     }
   }
 
 
-  drawTransportMove(transport, dom) {
+  drawTransportMove(transport, dom, label) {
     var currentRoute = null;
     var relativeDistance = 0;
     if(transport.route.length == 1) {
@@ -196,7 +219,7 @@ class CanvasManager {
     }
 
     if(currentRoute == null) {
-      return;
+      return; 
     }
 
 
@@ -206,13 +229,21 @@ class CanvasManager {
     dom.style.left = (relativeCoordinate.x - this.carSprite.width/2) + 'px';
     dom.style.top = (relativeCoordinate.y - this.carSprite.height/2) + 'px';
 
+    label.innerHTML =  '['+transport.packages.length + '/'+transport.capacity+']';
+    label.style.left = (relativeCoordinate.x - this.carSprite.width/2) + 'px';
+    label.style.top = (relativeCoordinate.y + this.carSprite.height/2) + 'px';
   }
 
-  drawTransportInCity(transport, dom) {
+  drawTransportInCity(transport, dom, label) {
     var city = transport.currentCity;
 
     dom.style.left = this.cityDoms[city.name].style.left;
     dom.style.top = this.cityDoms[city.name].style.top;
+
+
+    label.innerHTML =  '['+transport.packages.length + '/'+transport.capacity+']';
+    label.style.left = this.cityDoms[city.name].style.left;
+    label.style.top = this.cityDoms[city.name].style.left;
   }
 
   drawRoads() {
