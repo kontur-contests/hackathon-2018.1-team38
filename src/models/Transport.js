@@ -3,6 +3,7 @@
 class Transport {
 
   constructor(type, capacity, velocity){
+  	this.id = 1;
     this.type = type;
     this.capacity = capacity;
     this.velocity = velocity;
@@ -14,14 +15,16 @@ class Transport {
   }
 
   load(packCity){
-   	if(packCity == null){
-   		while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
-  			this.packages.push(this.currentCity.packages.pop());
-    	}
-   	} else {
-   		var pack = this.currentCity.packages.pop();
-  		packCity === pack.to ? this.packages.push() : this.currentCity.packages.push();
-   	}
+ 	if(packCity == null){
+ 		while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
+			this.packages.push(this.currentCity.packages.pop());
+  		}
+ 	} else {
+ 	//	while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
+ 			var pack = this.currentCity.packages.pop();
+			packCity === pack.to ? this.packages.push(pack) : this.currentCity.packages.push(pack);
+	//	}
+ 	}
   }
 
   unload(){
@@ -42,5 +45,15 @@ class Transport {
 
   on(eventType, handler) {
   	this.handlers[eventType] = handler;
+  }
+
+  goTo(city) {
+		this.route = getRouteToCity(city);
+		this.currentCity = null;
+  }
+
+  getRouteToCity(city) {
+		//TODO: тут будет поиcк по графу пока просто заглушка
+		return [self.currentLevel.roads[0], self.currentLevel.roads[1]];
   }
 }
