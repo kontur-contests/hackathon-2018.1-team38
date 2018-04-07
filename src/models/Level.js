@@ -10,12 +10,12 @@ class Level {
     this.goalPackage = goalPackage;
   }
 
-  simulate() {
-	var needGenerate = (~~(Math.random() * 100)) > 20;
+  simulate(delta) {
+	   var needGenerate = (~~(Math.random() * 100)) > 20;
 
-	if(needGenerate) {
-		this.cities[0].addPackage(new Package(this.cities[0], this.cities[1]));
-	}
+	   if(needGenerate) {
+		    this.cities[0].addPackage(new Package(this.cities[0], this.cities[1]));
+	   }
   }
 
   init(codeForExecution) {
