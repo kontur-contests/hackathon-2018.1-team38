@@ -75,7 +75,9 @@ var previousTimestamp = null;
 		var delta = (timestamp - previousTimestamp)/1000;
 
 
-		self.currentLevel.simulate(delta);
+		var status = self.currentLevel.simulate(delta);
+
+		self.canvasManager.displayStatus(status);
 
 		if(self.canvasManager != null) {
 			self.canvasManager.update();
@@ -84,7 +86,9 @@ var previousTimestamp = null;
 
 		previousTimestamp = timestamp;
 		  	
+	  	if(status == 'running') {
 		    requestAnimationFrame(step);
+		}
 	}
 
 
@@ -125,8 +129,8 @@ var previousTimestamp = null;
   }
 
 
-	function setCanvas(wrapper, canvasDom, canvas, timer, goal) {
-		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, 700, 500);
+	function setCanvas(wrapper, canvasDom, canvas, timer, goal, status) {
+		self.canvasManager = new CanvasManager(wrapper, canvasDom, canvas, timer, goal, status, 700, 500);
 
 		if(self.currentLevel != null) {
 			self.canvasManager.loadLevel(self.currentLevel);

@@ -2,12 +2,15 @@
 
 class CanvasManager {
 
-  constructor(wrapper, canvasDom, canas, timer, goal, width, height){
+  constructor(wrapper, canvasDom, canas, timer, goal, status, width, height){
     this.canvasDom = canvasDom;
     this.wrapper = wrapper;
     this.canvas = canvas;
     this.timer = timer;
     this.goal = goal;
+    this.status = status;
+
+    this.previousStatus = null;
 
     this.canvas.height = height;
     this.canvas.width = width;
@@ -37,6 +40,16 @@ class CanvasManager {
       width: 20,
       height: 15
     };
+  }
+
+  displayStatus(status) {
+    if(this.previousStatus == status) {
+      return;
+    }
+
+
+    this.status.innerHTML = status;
+    this.previousStatus = status;
   }
 
   clearLevel() {

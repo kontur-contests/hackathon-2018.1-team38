@@ -10,7 +10,9 @@ onload = function() {
 		document.getElementById('canvas-dom'),
 		document.getElementById('canvas'),
 		document.getElementById('timer'),
-		document.getElementById('goal'),);
+		document.getElementById('goal'),
+		document.getElementById('status')
+		);
 	
 
 
