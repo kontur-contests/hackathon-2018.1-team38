@@ -19,9 +19,11 @@ class Level {
 	   
 
      for(var i=0; i<this.transports.length; i++) {
-        var car = this.transports[i];
+        let car = this.transports[i];
 
-        car.position += car.velocity * delta;
+        if(car.currentCity == null && car.route.length > 0) {
+          car.position += car.velocity * delta;
+        }
      }
 
      this.currentTime += delta;

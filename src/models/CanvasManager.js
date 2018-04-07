@@ -222,8 +222,8 @@ class CanvasManager {
 
       this.ctx.beginPath();
       this.ctx.setLineDash([]);
-      this.ctx.moveTo(road.city1.x,road.city1.y);
-      this.ctx.lineTo(road.city2.x,road.city2.y);
+      this.ctx.moveTo(road.from.x,road.from.y);
+      this.ctx.lineTo(road.to.x,road.to.y);
       this.ctx.strokeStyle = '#ccc';
 
 

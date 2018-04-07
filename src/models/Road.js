@@ -18,11 +18,11 @@ class Road {
   	}
 
   	var normalizeVector = {
-  		x: (this.city2.x - this.city1.x)/this.distance,
-  		y: (this.city2.y - this.city1.y)/this.distance
+  		x: (this.to.x - this.from.x)/this.distance,
+  		y: (this.to.y - this.from.y)/this.distance
   	};
 
-  	var resultCoordinate = { x: this.city1.x, y: this.city1.y };
+  	var resultCoordinate = { x: this.from.x, y: this.from.y };
   	resultCoordinate.x += normalizeVector.x * relativeDistance;
   	resultCoordinate.y += normalizeVector.y * relativeDistance;
 

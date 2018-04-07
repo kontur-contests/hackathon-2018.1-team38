@@ -44,6 +44,7 @@ class Transport {
 
   on(eventType, handler) {
   	this.handlers[eventType] = handler;
+  }
 
   goTo(city) {
 		this.route = getRouteToCity(city);
