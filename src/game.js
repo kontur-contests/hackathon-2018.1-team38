@@ -2,7 +2,7 @@ function Game() {
 	var self = {};
 
 
-	self.levels = ['Москва - Питер', 'Новый свет', 'Южное родео', 'Дальние горизонты'];
+	self.levels = ['Москва - Питер', 'Новый свет', 'Южное родео', 'Дальние горизонты', 'Золотое Кольцо'];
 
 	self.currentLevel = null;
 	self.currentLevelName = '';
