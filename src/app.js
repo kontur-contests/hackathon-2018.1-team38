@@ -26,7 +26,11 @@ onload = function() {
 		);
 	
 
+	game.setLessSpeed(document.getElementById('lessSpeed'));
+	game.setMoreSpeed(document.getElementById('moreSpeed'));
+	game.setSpeedIndicator(document.getElementById('speedIndicator'));
 
+	
 	game.setSuccessModal(document.getElementById('successModal'));
 	game.setWinnerModal(document.getElementById('winnerModal'));
 

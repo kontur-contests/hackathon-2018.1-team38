@@ -19,13 +19,17 @@ function Game() {
 	self.setSuccessModal = setSuccessModal;
 	self.setWinnerModal = setWinnerModal;
 	self.setLevelName = setLevelName;
+	self.setLessSpeed = setLessSpeed;
+	self.setMoreSpeed = setMoreSpeed;
+	self.setSpeedIndicator =  setSpeedIndicator;
 	self.reloadLevel = reloadLevel;
 	self.init = init;
 	self.running = false;
 	self.successModal = null;
 	self.winnerModal = null;
 	self.levelNameLabel = null;
-
+	self.timeMultipler = 1;
+	self.speedIndicator = null;
 
 
 	return self;
@@ -34,7 +38,7 @@ function Game() {
 
 	function init(levelName) {
 		
-
+		refreshSpeedIndicator();
 		loadLevel(levelName);
 
 		//requestAnimationFrame(step);
@@ -98,7 +102,7 @@ function Game() {
 		var delta = (timestamp - previousTimestamp)/1000;
 
 
-		var status = self.currentLevel.simulate(delta);
+		var status = self.currentLevel.simulate(delta, self.timeMultipler);
 
 
 
@@ -182,6 +186,37 @@ function Game() {
 
 	}
 
+	function setLessSpeed(element) {
+		$(element).bind('click', function() {
+			if(self.timeMultipler > 0.2) {
+				self.timeMultipler -= 0.2;
+
+				refreshSpeedIndicator();
+			}
+		});
+	}
+
+	function refreshSpeedIndicator() {
+
+
+		if(self.speedIndicator != null) {
+			self.speedIndicator.innerHTML = self.timeMultipler.toFixed(1);
+		}
+	}
+
+	function setSpeedIndicator(element) {
+		self.speedIndicator = element;
+	}
+
+	function setMoreSpeed(element) {
+		$(element).bind('click', function() {
+			if(self.timeMultipler <= 3.8) {
+				self.timeMultipler += 0.2;
+			}
+
+			refreshSpeedIndicator();
+		});
+	}
 
 	function getRouteToCity(city) {
 		//TODO: тут будет поиcк по графу пока просто заглушка

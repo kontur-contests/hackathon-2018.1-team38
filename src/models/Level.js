@@ -47,8 +47,8 @@ class Level {
   }
 
 
-  simulate(delta) {
-      
+  simulate(delta, timeMultplier) {
+      delta = delta * timeMultplier;
     this.populatePackages(delta);	   
 
      for(var i=0; i<this.transports.length; i++) {
