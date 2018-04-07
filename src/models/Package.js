@@ -2,8 +2,8 @@
 
 class Package {
 
-  constructor(){
-    this.from = null;
-    this.to = null;
+  constructor(from, to){
+    this.from = from;
+    this.to = to;
   }
 }
