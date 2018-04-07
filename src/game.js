@@ -109,6 +109,7 @@ var previousTimestamp = null;
 				}
 
 					self.reloadLevel();
+					self.currentLevel.init(self.codeEditor.getValue());
 					self.running = true;
 					self.run();
 

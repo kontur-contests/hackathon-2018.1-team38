@@ -20,8 +20,10 @@ class Transport {
 			this.packages.push(this.currentCity.packages.pop());
   		}
  	} else {
- 		var pack = this.currentCity.packages.pop();
-		packCity === pack.to ? this.packages.push() : this.currentCity.packages.push();
+ 	//	while(this.currentCity.packages.length > 0 || this.packages.length < capacity){
+ 			var pack = this.currentCity.packages.pop();
+			packCity === pack.to ? this.packages.push(pack) : this.currentCity.packages.push(pack);
+	//	}
  	}
   }
 
