@@ -2,7 +2,7 @@
 
 class Level {
 
-  constructor(cities, roads, transports, time, goalPackage){
+  constructor(cities, roads, transports, time, goalPackage) {
     this.cities = cities;
     this.roads = roads;
     this.transports = transports;
@@ -11,16 +11,16 @@ class Level {
   }
 
   simulate() {
-	var needGenerate = (~~(Math.random() * 100)) > 20;
+    var needGenerate = (~~(Math.random() * 100)) > 20;
 
-	if(needGenerate) {
-		this.cities[0].addPackage(new Package(this.cities[0], this.cities[1]));
-	}
+    if (needGenerate) {
+      this.cities[0].addPackage(new Package(this.cities[0], this.cities[1]));
+    }
   }
 
   init(codeForExecution) {
-  	var cities = this.cities;
+    var cities = this.cities;
 
-  	eval(codeForExecution);
+    eval(codeForExecution);
   }
 }
