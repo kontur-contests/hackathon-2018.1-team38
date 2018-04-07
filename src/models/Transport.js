@@ -44,5 +44,14 @@ class Transport {
 
   on(eventType, handler) {
   	this.handlers[eventType] = handler;
+
+  goTo(city) {
+		this.route = getRouteToCity(city);
+		this.currentCity = null;
+  }
+
+  getRouteToCity(city) {
+		//TODO: тут будет поиcк по графу пока просто заглушка
+		return [self.currentLevel.roads[0], self.currentLevel.roads[1]];
   }
 }

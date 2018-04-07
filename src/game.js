@@ -117,11 +117,7 @@ var previousTimestamp = null;
 		});
 	}
 
-	function goTo(city) {
-		var car = self.currentLevel.transports[0];
-		car.route = getRouteToCity(city);
-		currentCity = null;
-	}
+	
 
 	function getRouteToCity(city) {
 		//TODO: тут будет поиcк по графу пока просто заглушка
