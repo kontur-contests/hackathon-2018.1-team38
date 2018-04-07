@@ -86,14 +86,15 @@ class CanvasManager {
 
     this.drawBackground();
     this.drawCities(this.level.cities);
+    this.drawCityLabels(this.level.cities);
     this.update();
   }
 
 
-  createCityNameDom(name, x, y) {
+  createCityNameDom(name, packages, x, y) {
     var element = document.createElement('div');
     element.className = 'city-name';
-    element.innerHTML = name;
+    element.innerHTML = name + "(" + packages +")";
 
     return element;
   }
@@ -119,7 +120,7 @@ class CanvasManager {
 
     this.drawTimer(this.level.currentTime, this.level.time);
     this.drawGoal(this.level.currentGoal, this.level.goalPackage);
-
+    this.drawCityLabels(this.level.cities);
     this.drawTransports(this.level.transports);
   }
 
@@ -139,12 +140,17 @@ class CanvasManager {
 
       cityDom.style.left = (city.x - 3) + "px";
       cityDom.style.top = (city.y - 3) + "px";
+    }
+  }
 
+  drawCityLabels(cities) {
+    for(var i = 0; i < cities.length; i++) {
+      var city = cities[i];
 
       var cityName = this.cityNameDoms[city.name];
       cityName.style.left = city.x + "px";
       cityName.style.top = city.y + 5 + "px";
-
+      cityName.innerHTML = city.name + "(" + city.packages.length + ")";
     }
   }
 
