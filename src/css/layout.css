@@ -3,6 +3,19 @@
         height: 700px;
 }
 
+ul.packages {
+	padding: 0;
+	margin: 0;
+	margin-left: 0;
+	list-style-type: none;
+}
+
+ul.packages > li {
+	padding: 0;
+	margin: 0;
+	margin-left: 1em;
+	list-style-type: none;
+}
 
 #wrapper {
 	width: 1600px;

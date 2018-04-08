@@ -232,18 +232,35 @@ class CanvasManager {
         let pack = transport.packages[i];
 
         if(calculatePackages.hasOwnProperty(pack.to.name)) {
-          calculatePackages[pack.to.name] ++;
+          var obj = calculatePackages[pack.to.name];
+          obj.count++;
+          obj.goods.push(pack.name);
         } else {
-          calculatePackages[pack.to.name] = 1;
-        }          
+          calculatePackages[pack.to.name] = {
+            count: 1,
+            goods: [pack.name]
+          };
+        }
       }
 
 
+      if(Object.keys(calculatePackages).length > 0) {
+        infoBuilder += '<ul class="packages">';
+        for(var key in calculatePackages) {
+        
+        infoBuilder += '<li>' + key + '[' + calculatePackages[key].count + ']';
 
-      for(var key in calculatePackages) {
-        infoBuilder += key + '[' + calculatePackages[key] + ']<br />';
+        if(calculatePackages[key].goods.length > 0) {
+          infoBuilder += '<ul class="packages">';
+              calculatePackages[key].goods.forEach(x=> infoBuilder += "<li>"+x+"</li>");
+              infoBuilder += '</ul>';
+        }
+
+        infoBuilder += '</li>';
+        }
+
+        infoBuilder += '</ul>';
       }
-
 
       this.info.innerHTML = infoBuilder;
         

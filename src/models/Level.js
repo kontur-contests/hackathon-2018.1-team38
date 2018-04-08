@@ -12,6 +12,7 @@ class Level {
     this.currentTime = 0;
     this.currentGoal = 0;
     this.citiesPacks = {};
+    this.packageNames = ["мертвый клоун", "шнурки от сапог", "маринованный кактус", "биткойн ферма", "допинг для олимпийской сборной","игрушечный паровозик","плюшки с сахаром","матрица для ноутбука","подозрительный шкаф" ]
   }
 
 
@@ -35,7 +36,7 @@ class Level {
                 cityIndex = (cityIndex + 1) % this.cities.length;
               }
 
-             city.addPackage(new Package(city, this.cities[cityIndex]));
+             city.addPackage(new Package(city, this.cities[cityIndex], this.packageNames[(~~(Math.random() * this.packageNames.length))]));
             }
 
             this.citiesPacks[city.name] = 0;
