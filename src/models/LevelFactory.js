@@ -35,7 +35,7 @@ function LevelFactory(levelName) {
 
 		var transports = [];
 
-		var level = new Level(cities, roads, transports, 40, 10, graph);
+		var level = new Level(cities, roads, transports, 20, 10, graph);
 		var transport = new Transport("Car", 5, truckVelocity, graph, level);
 		transport.currentCity = spb;
 		transport.position = 0;
@@ -65,8 +65,8 @@ function LevelFactory(levelName) {
 		var graph = new Graph(map, cities);
 
 		var transports = [];
-		var level = new Level(cities, roads, transports, 50, 12, graph);
-		var transport = new Transport("Car", 7, truckVelocity, graph, level);
+		var level = new Level(cities, roads, transports, 35, 10, graph);
+		var transport = new Transport("Car", 5, truckVelocity, graph, level);
 		transport.currentCity = moscow;
 		transport.position = 0;
 		transports.push(transport);
@@ -99,7 +99,7 @@ function LevelFactory(levelName) {
 		var graph = new Graph(map, cities);
 
 		var transports = [];
-		var level = new Level(cities, roads, transports, 60, 20, graph);
+		var level = new Level(cities, roads, transports, 50, 20, graph);
 		var transport = new Transport("Car", 10, truckVelocity, graph, level);
 		transport.currentCity = spb;
 		transport.position = 0;
@@ -140,8 +140,8 @@ function LevelFactory(levelName) {
 
 		var transports = [];
 
-		var level = new Level(cities, roads, transports, 100, 30, graph);
-		var transport = new Transport("Car", 12, truckVelocity, graph, level);
+		var level = new Level(cities, roads, transports, 60, 25, graph);
+		var transport = new Transport("Car", 15, truckVelocity, graph, level);
 		transport.currentCity = spb;
 		transport.position = 0;
 		transports.push(transport);
@@ -191,8 +191,8 @@ function LevelFactory(levelName) {
 
 		var transports = [];
 
-		var level = new Level(cities, roads, transports, 100, 30, graph);
-		var transport = new Transport("Car", 12, truckVelocity, graph, level);
+		var level = new Level(cities, roads, transports, 80, 30, graph);
+		var transport = new Transport("Car", 20, truckVelocity, graph, level);
 		transport.currentCity = posad;
 		transport.position = 0;
 		transports.push(transport);
